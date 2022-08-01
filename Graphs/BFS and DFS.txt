@@ -1,0 +1,100 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node 
+{
+	int data;
+	struct node *next;
+}*front=NULL,*rear=NULL;
+void enqueue(int x)
+{
+	struct node *t;
+	t=(struct node*)malloc(sizeof(struct node));
+	if(t==NULL)
+	{
+		printf("queue is full\n");
+	}
+	else
+	{
+		t->data=x;
+		t->next=NULL;
+		if(front==NULL)
+		front=rear=t;
+		else
+		rear->next=t;
+	}
+}
+int dequeue()
+{
+	int x;
+	struct node *t;
+	if(front==NULL)
+	{
+		printf("queue is empty\n");
+	}
+	else
+	{
+		x=front->data;
+		t=front;
+		front=front->next;
+		free(t);
+		
+	}
+	return x;
+}
+int isEmpty()
+{
+	if(front==NULL)
+	return 1;
+	return 0;
+}
+void BFS(int G[][7],int start,int n)
+{
+	int i=start,v;
+	int Visited[7]={0};
+	printf("%d ",i);
+	Visited[i]=1;
+	enqueue(i);
+	while(!isEmpty())
+	{
+		i=dequeue();
+		for(v=1;v<n;v++)
+		{
+			if(Visited[v]==0&&G[i][v]==1)
+			{
+				printf("%d ",v);
+				Visited[v]=1;
+				enqueue(v);
+			}
+			
+		}
+	}
+}
+void DFS(int G[][7],int start,int n)
+{
+	int i=start,j;
+	static int Visited[7]={0};
+	printf("%d ",i);
+	Visited[i]=1;
+	for(j=1;j<n;j++)
+	{
+		if(G[i][j]==1&&Visited[j]==0)
+		{
+			DFS(G,j,n);
+		}
+	}
+	
+}
+int main()
+{
+	int A[7][7]={
+	{0,0,0,0,0,0,0},
+	{0,0,1,1,0,0,0},
+	{0,1,0,0,1,0,0},
+	{0,1,0,0,1,0,0},
+	{0,0,1,1,0,1,1},
+	{0,0,0,0,1,0,0},
+	{0,0,0,0,1,0,0}
+	};
+	DFS(A,1,7);
+	return 0;
+}
