@@ -1,0 +1,152 @@
+
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	struct node *lchild;
+	int data;
+	struct node *rchild;
+} *root=NULL;
+
+struct node *RInsert2(struct node *p,int key)
+{
+	if(p==NULL)
+	{
+		struct node *t;
+		t=(struct node*)malloc(sizeof(struct node*));
+		t->data=key;
+		t->rchild=t->lchild=NULL;
+		return t;
+	}
+	if(key<p->data)
+	{
+		p->lchild=RInsert2(p->lchild,key);
+	}
+	else if(key>p->data)
+	{
+		p->rchild=RInsert2(p->rchild,key);
+	}
+	return p;
+}
+void Inorder(struct node *p)
+{
+	if(p!=NULL)
+	{
+	
+	
+	Inorder(p->lchild);
+	printf("%d ",p->data);
+	Inorder(p->rchild);
+   }
+}
+struct node *ISearch(int key)
+{
+while(root!=NULL)
+{
+	if(key==root->data)
+	return root;
+	else if(key<root->data)
+	root=root->lchild;
+	else
+	root=root->rchild;
+	}	
+	return NULL;
+}
+int height(struct node *p)
+{
+	int x,y;
+	if(p==NULL || (p->rchild==NULL &&p->lchild==NULL))
+	{
+		return 0;
+	}
+	x=height(p->rchild);
+	y=height(p->lchild);
+	return x>y?x+1:y+1;
+	
+}
+struct node* InPre(struct node*p)
+{
+	while(p&& p->lchild!=NULL)
+	{
+		p=p->lchild;
+	}
+	return p;
+}
+
+
+
+struct node* InSu(struct node*p)
+{
+	while(p&& p->rchild!=NULL)
+	{
+		p=p->rchild;
+	}
+	return p;
+}
+
+
+struct node* Delete(struct node *p,int key)
+{
+	struct node *q;
+	if(p==NULL)
+	{
+		return NULL;
+	}
+	if(p->rchild==NULL && p->lchild==NULL  && p->data==key)
+	{
+		if(root==p)
+		root= NULL;
+		free(p);
+		return NULL;
+	}
+	if(key<p->data)
+	{
+		p->lchild=Delete(p->lchild,key);
+	}
+	else if(key>p->data)
+	{
+		p->rchild=Delete(p->rchild,key);
+	}
+	else
+	{
+		if(height(p->lchild)>height(p->rchild))
+		{
+			q=InPre(p->lchild);
+			p->data=q->data;
+			p->lchild=Delete(p->lchild,q->data);
+			
+		}
+		else
+		{
+			q=InSu(p->rchild);
+			p->data=q->data;
+			p->rchild=Delete(p->rchild,q->data);
+			
+		}
+	}
+	return p;
+}
+
+
+
+
+int main()
+{
+	struct node *temp;
+	root= RInsert2(root,50);
+	RInsert2(root,10);
+	RInsert2(root,40);
+	RInsert2(root,20);
+	RInsert2(root,30);
+	Delete(root,50);
+	Inorder(root);
+	temp=ISearch(10);
+	if(temp!=NULL)
+	{
+		printf("\nElement is %d is found\n",temp->data);
+		
+	}
+	else
+	printf("\nElement is not found\n");
+	return 0;
+}

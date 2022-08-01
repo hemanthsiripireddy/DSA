@@ -1,0 +1,140 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	struct node *lchild;
+	int data;
+	struct node *rchild;
+} *root=NULL;
+void insert(int key)
+{
+	struct node *t=root;
+	struct node *r,*p;
+	if(root==NULL)
+	{
+		p=(struct node *)malloc(sizeof(struct node));
+		p->data=key;
+		p->lchild=p->rchild=NULL;
+		root=p;
+		return ;
+	}
+	while(t!=NULL)
+	{
+		r=t;
+		if(key<t->data)
+		t=t->lchild;
+		else if(key>t->data)
+		t=t->rchild;
+		else
+		return;
+	}
+	p=(struct node *)malloc(sizeof(struct node));
+		p->data=key;
+		p->lchild=p->rchild=NULL;
+	if(key<r->data)
+	r->lchild=p;
+	else if(key>r->data)
+	r->rchild=p;
+	else
+	return ;
+	
+}
+void Rinsert(struct node *t,struct node*r,int key)
+{
+	struct node *p;
+
+	
+	
+	if(r!=NULL and t==NULL)
+	{
+			p=(struct node *)malloc(sizeof(struct node));
+		p->data=key;
+		p->lchild=p->rchild=NULL;
+		if(key<r->data)
+		{
+			r->lchild=p;
+		}
+		else
+		r->rchild=p;
+		return;
+	}
+	if(t==NULL)
+	{
+		p=(struct node *)malloc(sizeof(struct node));
+		p->data=key;
+		p->lchild=p->rchild=NULL;
+		root=p;
+		return ;
+	}
+	
+	if(t!=NULL)
+	{
+		r=t;
+		if(key<t->data)
+		Rinsert(t->lchild,r,key);
+		else if(key>t->data)
+		Rinsert(t->rchild,r,key);
+		else
+		return ;
+		
+	}
+	
+}
+void Inorder(struct node *p)
+{
+	if(p!=NULL)
+	{
+	
+	
+	Inorder(p->lchild);
+	printf("%d ",p->data);
+	Inorder(p->rchild);
+   }
+}
+struct node *ISearch(int key)
+{
+while(root!=NULL)
+{
+	if(key==root->data)
+	return root;
+	else if(key<root->data)
+	root=root->lchild;
+	else
+	root=root->rchild;
+	}	
+	return NULL;
+}
+struct node *RSearch(struct node *p,int key)
+{
+	if(p!=NULL)
+	{
+	
+	if(key==p->data)
+	return p;
+
+	else if(key<p->data)
+	return RSearch(p->lchild,key);
+	else
+	return RSearch(p->rchild,key);
+   }
+   return NULL;
+}
+int main()
+{
+	struct node *temp;
+	Rinsert(root,NULL,4);
+	Rinsert(root,NULL,2);
+	Rinsert(root,NULL,6);
+	Rinsert(root,NULL,1);
+	Rinsert(root,NULL,5);
+	Inorder(root);
+	temp=RSearch(root,6);
+	if(temp!=NULL)
+	{
+		printf("\nElement is %d is found\n",temp->data);
+		
+	}
+	else
+	printf("\nElement is not found\n");
+	return 0;
+}

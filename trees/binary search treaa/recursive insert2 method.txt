@@ -1,0 +1,20 @@
+struct node *RInsert2(struct node *p,int key)
+{
+	if(p==NULL)
+	{
+		struct node *t;
+		t=(struct node*)malloc(sizeof(struct node*));
+		t->data=key;
+		t->rchild=t->lchild=NULL;
+		return t;
+	}
+	if(key<p->data)
+	{
+		p->lchild=RInsert2(p->lchild,key);
+	}
+	else if(key>p->data)
+	{
+		p->rchild=RInsert2(p->rchild,key);
+	}
+	return p;
+}

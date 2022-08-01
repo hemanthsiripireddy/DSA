@@ -1,0 +1,138 @@
+#include<stdio.h>
+#include<stdlib.h>
+void enstack(struct Stack *s,struct node *p);
+
+struct Stack
+{
+	
+	int rear;
+	int size;
+	struct node **Q;
+} ;
+struct node 
+{
+	struct node *lchild;
+    int data;
+    struct node *rchild;
+}* temp,*root;
+struct node *stacktop(struct Stack *s)
+{
+	return s->Q[s->rear];
+}
+
+
+void CreatingStack(struct Stack *s,int size)
+{
+	s->rear=-1;
+	s->size=size;
+	s->Q=(struct node**)malloc(s->size*sizeof(struct node*));
+	temp=(struct node*)malloc(sizeof(struct node));
+	temp->data=0;
+	temp->lchild=temp->rchild=NULL;
+
+	
+	enstack(s,temp);
+}
+
+
+void enstack(struct Stack *s,struct node *p)
+{
+	if(s->rear==s->size-1)
+	printf("Stack is full\n");
+	else
+	{
+		s->rear++;
+		s->Q[s->rear]=p;
+	}
+}
+
+
+struct node *destack(struct Stack *s)
+{
+	if(s->rear==-1)
+	printf("Stack is empty\n");
+	else
+	{
+		s->rear--;
+		return s->Q[s->rear+1];
+	}
+	
+}
+
+int isemptyS(struct Stack *s)
+{
+	return s->rear==-1;
+}
+void preorder(struct node *p)
+	{
+		if(p)
+		{
+		
+		printf("%d ",p->data);
+		preorder(p->lchild);
+		preorder(p->rchild);
+	   }
+		
+	}
+	
+void createpre(int preor[],int n)
+{
+	struct Stack *s;
+		
+	s=(struct Stack*)malloc(sizeof(struct Stack));
+	int i=n-1;
+	CreatingStack(s,23);
+	struct node *t,*p;
+    root=(struct node*)malloc(sizeof(struct node));
+	root->data=preor[i--];
+	root->lchild=root->rchild=NULL;
+	p=root;
+	while(i>-1)
+	{
+		if(preor[i]>p->data)
+		{
+			t=(struct node*)malloc(sizeof(struct node));
+			t->data=preor[i--];
+			t->lchild=t->rchild=NULL;
+			p->rchild=t;
+			enstack(s,p);
+			p=t;
+		}
+		else 
+		if(preor[i]<p->data && preor[i]>stacktop(s)->data)
+    	{
+		t=(struct node*)malloc(sizeof(struct node));
+			t->data=preor[i--];
+			t->lchild=t->rchild=NULL;
+			p->lchild=t;
+			p=t;
+		}
+		else
+		{
+			p=destack(s);
+			
+		}
+	}
+	
+}
+void postorder(struct node *p)
+	{
+		if(p)
+		{
+		
+	
+		postorder(p->lchild);
+		postorder(p->rchild);
+			printf("%d ",p->data);
+	  }
+}
+int main()
+{
+int preor[]={15,10,25,20,45,50,40,30};
+int n=8;
+createpre(preor,n);
+postorder(root);
+//preorder(root);
+
+	return 0;
+}

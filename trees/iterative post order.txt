@@ -1,0 +1,31 @@
+void IPostorder(struct node *p)
+{
+	struct Stack s;
+	long int x;
+	CreatingStack(&s,100);
+	
+	while(p || !isemptyS(&s))
+	{
+		if(p)
+		{
+		
+		printf("%d ",p->data);
+		enstack(&s,p);
+		p=p->lchild;
+     	}
+     	else
+     	{
+     		
+     		x=(long int)destack(&s);
+     		
+     		if(x>0)
+     		{
+     			enstack(-x);
+     			
+			 
+     		p=(strct node*)x->rchild;
+     		
+		 }
+	}
+}
+

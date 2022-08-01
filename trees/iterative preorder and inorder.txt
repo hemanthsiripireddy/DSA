@@ -1,0 +1,310 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	struct node *lchild;
+	int data;
+	struct node *rchild;
+};
+
+
+
+
+
+
+struct Queue
+{
+	int size;
+	int front;
+	int rear;
+	struct node **Q;
+};
+
+
+struct node *root=NULL;
+
+
+
+void CreateQueue(struct Queue *q,int size)
+{
+	q->size=size;
+	q->front=q->rear=0;
+	q->Q=(struct node**)malloc(q->size*sizeof(struct node*));
+}
+
+
+
+
+
+void Enqueue(struct Queue *q,struct node *x )
+{
+	if((q->rear+1)%q->size==q->front)
+	{
+		printf("Queue is full\n");
+	}
+	else
+	{
+		q->rear=(q->rear+1)%q->size;
+		q->Q[q->rear]=x;
+	}
+}
+
+
+
+
+struct node*  Dequeue(struct Queue *q)
+{
+	if(q->rear==q->front)
+	{
+		printf("Queue is empty\n");
+		
+	}
+	else
+	{
+		q->front=(q->front+1)%q->size;
+		return q->Q[q->front];
+	}
+}
+
+
+
+
+int isEmpty(struct Queue q)
+{
+	return q.front==q.rear;
+	
+}
+
+struct Stack
+{
+	
+	int rear;
+	int size;
+	struct node **Q;
+};
+
+
+
+
+
+void CreatingStack(struct Stack *s,int size)
+{
+	s->rear=-1;
+	s->size=size;
+	s->Q=(struct node**)malloc(size*sizeof(struct node*));
+}
+
+
+
+
+
+
+
+
+
+
+
+void enstack(struct Stack *s,struct node *p)
+{
+	if(s->rear==s->size-1)
+	printf("Stack is full\n");
+	else
+	{
+		s->rear++;
+		s->Q[s->rear]=p;
+	}
+}
+struct node *destack(struct Stack *s)
+{
+	if(s->rear==-1)
+	printf("Stack is empty\n");
+	else
+	{
+		s->rear--;
+		return s->Q[s->rear+1];
+	}
+	
+}
+int isemptyS(struct Stack *s)
+{
+	return s->rear==-1;
+}
+
+
+
+
+
+
+void IPreorder(struct node *p)
+{
+	struct Stack s;
+	CreatingStack(&s,100);
+	while(p || !isemptyS(&s))
+	{
+		if(p)
+		{
+		
+		printf("%d ",p->data);
+		enstack(&s,p);
+		p=p->lchild;
+     	}
+     	else
+     	{
+     		p=destack(&s);
+     		p=p->rchild;
+		 }
+	}
+}
+
+
+
+
+void IInorder(struct node *p)
+{
+	struct Stack s;
+	CreatingStack(&s,100);
+	while(p || !isemptyS(&s))
+	{
+		if(p)
+		{
+		
+	
+		enstack(&s,p);
+		p=p->lchild;
+     	}
+     	else
+     	{
+     		
+     		p=destack(&s);
+     			printf("%d ",p->data);
+     		p=p->rchild;
+		 }
+	}
+}
+
+
+
+
+
+
+
+
+
+
+void CreateTree()
+{
+	root=(struct node*)malloc(sizeof(struct node));
+	struct Queue q;
+	int x;
+	struct node *p,*temp;
+	CreateQueue(&q,100);
+	printf("Enter the root value: ");
+	scanf("%d",&x);
+	root->data=x;
+	root->lchild=root->rchild=NULL;
+	Enqueue(&q,root);
+
+	while(!isEmpty(q))
+	{
+	p=Dequeue(&q);
+		printf("Enter  the left child of %d: ",p->data);
+		scanf("%d",&x);
+		if(x!=-1)
+		{
+			temp=(struct node*)malloc(sizeof(struct node));
+			temp->lchild=temp->rchild=NULL;
+			
+			temp->data=x;
+			p->lchild=temp;
+			Enqueue(&q,temp);
+			
+		}
+		printf("Enter the right chile of %d: ",p->data);
+		scanf("%d",&x);
+			if(x!=-1)
+		{
+			temp=(struct node*)malloc(sizeof(struct node));
+		
+			temp->data=x;
+			temp->lchild=temp->rchild=NULL;
+			
+			p->rchild=temp;
+				Enqueue(&q,temp);
+			
+		}
+		
+		
+	}
+}
+
+
+
+
+
+void preorder(struct node *p)
+	{
+		if(p)
+		{
+		
+		printf("%d ",p->data);
+		preorder(p->lchild);
+		preorder(p->rchild);
+	   }
+		
+	}
+	
+	
+	
+	
+		void postorder(struct node *p)
+	{
+		if(p)
+		{
+		
+	
+		postorder(p->lchild);
+		postorder(p->rchild);
+			printf("%d ",p->data);
+	   }
+		
+	}
+	
+		void inorder(struct node *p)
+	{
+		if(p)
+		{
+		
+	
+		inorder(p->lchild);
+		printf("%d ",p->data);
+		inorder(p->rchild);
+			
+	   }
+		
+	}
+	
+	
+
+
+
+void Display(struct node *p)
+{
+	printf("Pre order elements are: \n");
+	IPreorder(p);
+	printf("Post order elements are: \n");
+	postorder(p);
+	printf("Inorder elements are: \n");
+	IInorder(p);
+	
+	
+	
+}
+
+int main()
+{
+	
+	CreateTree();
+	Display(root);
+	return 0;
+	
+}

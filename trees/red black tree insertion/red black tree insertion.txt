@@ -1,0 +1,225 @@
+/*
+ C- implementation for
+ Red-Black Tree insertion
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+//structure to represent each node in red-black tree
+struct node 
+{
+	struct node *lchild;//left child
+	struct node *rchild;//right child
+	struct node *p;//parent
+	int data;//data
+	int c;//colour: 1->red, 0->black
+} *root=NULL;// global root for the entire tree
+
+//function to perform BST insetion of node
+struct node *Insert(struct node *p,struct node *temp)
+{
+	struct node *t;
+	//if node is null
+	// return new node
+	if(p==NULL)
+	{
+	return 	temp;
+	}
+	// otherwise recur down the tree
+	if(temp->data<p->data)
+	{
+		p->lchild= Insert(p->lchild,temp);
+		p->lchild->p=p;
+	}
+	else if(temp->data>p->data)
+	{
+		p->rchild= Insert(p->rchild,temp);
+			p->rchild->p=p;
+		
+	}
+	return p;
+}
+void leftrotation(struct node *temp)
+{
+	struct node *right;
+	right=temp->rchild;
+	temp->rchild=right->lchild;
+	if(temp->rchild)
+	{
+		temp->rchild->p=temp;
+	}
+	if(temp==root)
+	{
+		root=right;
+	}
+	else if(temp==temp->p->rchild)
+	{
+		temp->p->rchild=right;
+	}
+	else
+	temp->p->lchild=right;
+	right->lchild=temp;
+	temp->p=right;
+}
+void rightrotation(struct node *temp)
+{
+	struct node * left;
+	left=temp->lchild;
+	temp->lchild=left->rchild;
+	if(temp->lchild)
+	temp->lchild->p=temp;
+
+	
+	if(temp==root)
+	root=left;
+	else if(temp==temp->p->rchild)
+	{
+		temp->p->rchild=left;
+	}
+	else
+	temp->p->lchild=left;
+	left->rchild=temp;
+	temp->p=left;
+	
+}
+// this function fixes violations caused by BST insertion
+void fixup(struct node *pt)
+{
+	struct node *parent_pt=NULL;
+	struct node *grand_parent_pt=NULL;
+	while((pt!=root&&pt->c==1)&&(pt->p->c==1))
+	{
+		parent_pt=pt->p;
+		grand_parent_pt=pt->p->p;
+		//caseA: 
+		// if parent is left child of grandparent
+		if(parent_pt==grand_parent_pt->lchild)
+		{
+			struct node *uncle_pt=grand_parent_pt->rchild;
+			/* case 1:
+			if uncle of pt is also red
+			only recolouring is required
+			*/
+			if(uncle_pt!=NULL && uncle_pt->c==1)
+			{
+				grand_parent_pt->c=1;
+				uncle_pt->c=parent_pt->c=0;
+				pt=grand_parent_pt;
+			}
+			else
+			{
+				/* case2:
+				if pt is right child of parent_pt
+				then left rotation required
+				*/
+				if(pt==parent_pt->rchild)
+				{
+					leftrotation(parent_pt);
+				
+					pt=parent_pt;
+					parent_pt=pt->p;
+				}
+				// pt is left of parent and parent is left of grand parent 
+				// right rotation is required
+				rightrotation(grand_parent_pt);
+				int c=parent_pt->c;
+				parent_pt->c=grand_parent_pt->c;
+				grand_parent_pt->c=c;
+				pt=parent_pt;
+				
+			}
+		}
+			// case B: if parent is right child of grand parent
+		else
+		{
+			struct node *uncle_pt=grand_parent_pt->lchild;
+			// case 1: if uncle is also red
+			// only recolouring is required
+			if(uncle_pt!=NULL && uncle_pt->c==1)
+			{
+				grand_parent_pt->c=1;
+				uncle_pt->c=parent_pt->c=0;
+				pt=grand_parent_pt;
+			}
+			else
+			{
+				// case B :
+				// if pt is left of parent 
+				// right rotation is required
+				if(pt==parent_pt->lchild)
+				{
+					rightrotation(parent_pt);
+					parent_pt=pt;
+					pt=parent_pt->rchild;
+				}
+				//case C:
+				// if pt is right of parent and parent is right of grand parent
+				// left rotation is required
+				leftrotation(grand_parent_pt);
+				int t=grand_parent_pt->c;
+				grand_parent_pt->c=parent_pt->c;
+				parent_pt->c=t;
+					
+			}
+		}
+		
+			
+	}
+	root->c=0;
+}
+void Inorder(struct node *p)
+{
+	if(p)
+	{
+		Inorder(p->lchild);
+		printf("%d ",p->data);
+		Inorder(p->rchild);
+	}
+}
+void Preorder(struct  node *p)
+{
+	if(p)
+	{
+	
+	printf("%d ",p->data);
+	Preorder(p->lchild);
+	Preorder(p->rchild);
+}
+}
+int main()
+{
+
+	int i, n=7;
+	struct node *temp;
+	int A[7]={7,6,5,4,3,2,1};
+	
+	
+	for(i=0;i<n;i++)
+	{
+		 struct node* temp
+            = (struct node*)malloc(sizeof(struct node));
+        temp->rchild = NULL;
+        temp->lchild = NULL;
+        temp->p = NULL;
+        temp->data = A[i];
+        temp->c = 1;
+  
+        // calling function that performs bst insertion of
+        // this newly created node
+        root =Insert(root, temp);
+  
+        // calling function to preserve properties of rb
+        // tree
+        fixup(temp);
+		// calling function that performs BST insrtion
+		
+	}
+	printf("Preorder: ");
+	Preorder(root);
+	printf("\nInorder is: ");
+	Inorder(root);
+	return 1;
+	
+	
+
+}
