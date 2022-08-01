@@ -1,0 +1,29 @@
+#include<stdio.h>
+void Missing(int A[],int length)
+{
+	int hl=A[length-1],si=A[0],ei=A[length-1];
+	int i,H[hl]={0},k;
+	for(i=0;i<length;i++)
+	{
+		k=A[i];
+		
+		H[k]=1;
+		
+	}
+	for(i=si;i<=ei;i++)
+	{
+		if(H[i]==0) printf("Missing element is : %d",i);
+	}
+}
+
+
+int main()
+{
+	int A[10]={12,14,15,16,19,20,21,22,23,24};
+	Missing(A,10);
+	
+
+	return 0;
+	
+	
+}

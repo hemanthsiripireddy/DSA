@@ -1,0 +1,43 @@
+#include<stdio.h>
+struct array
+{
+	int p[10];
+	int length;
+	int size;
+	
+};
+append(struct array *arr,int x)
+{
+	if(arr->length<arr->size)
+	arr->p[arr->length++]=x;
+}
+void display(struct array arr)
+{
+	int i;
+	
+	for(i=0;i<arr.length;i++)
+	{
+		printf("%d\n",arr.p[i]);
+	}
+}
+void insert(struct array *arr,int index,int value)
+{
+	int i;
+	if(index>=0 &&index<=arr->length)
+	{
+		for(i=arr->length;i>index;i--)
+		{
+			arr->p[i]=arr->p[i-1];
+		}
+		arr->p[index]=value;
+		arr->length++;// best case O(n)=1 and worst case O(n)=n
+	}
+}
+int main()
+{
+	struct array arr= {{2,3,4,5,6},5,10};
+	//append(&arr,10);
+	insert(&arr,12,10);
+	display(arr);
+	
+}

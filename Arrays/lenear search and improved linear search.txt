@@ -1,0 +1,77 @@
+#include<stdio.h>
+struct array
+{
+	int p[10];
+	int length;
+	int size;
+	
+};
+
+void display(struct array arr)
+{
+	int i;
+	
+	for(i=0;i<arr.length;i++)
+	{
+		printf("%d\n",arr.p[i]);
+	}
+}
+int linearsearch(struct array arr, int value)
+{
+	int i;
+	for(i=0;i<=arr.length;i++)
+	{
+		if(value==arr.p[i]);
+		return i;
+	}
+	return -1;
+
+}
+void swap(int *a,int *b)
+{
+	int temp;
+	temp=*a;
+	*a=*b;
+	*b=temp;
+}
+// improved linear search
+
+int Ilinearsearch(struct array *arr, int value)// transposition
+{
+	int i;
+	for(i=0;i<arr->length;i++)
+	{
+		if(value==arr->p[i])
+		{
+		swap(&arr->p[i],&arr->p[i-1]);
+		return i-1;
+	}
+	}
+	return -1;
+	
+}
+int IMlinearsearch(struct array *arr, int value)// move to front or move to head
+{
+	int i;
+	
+	for(i=0;i<arr->length;i++)
+	{
+		if(value==arr->p[i])
+		{
+		
+		swap(&arr->p[i],&arr->p[0]);
+		return 0;
+	}
+	}
+	return -1;
+}
+int main()
+{
+	struct array arr= {{2,3,4,5,6},5,10};
+	//append(&arr,10);
+	//printf("element is found and location is : %d\n",linearsearch(arr,4));
+		//printf("element is found and location is : %d\n",Ilinearsearch(&arr,4));
+			printf("element is found and location is : %d\n",IMlinearsearch(&arr,4));
+	display(arr);
+	return 0;
+}

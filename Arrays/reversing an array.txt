@@ -1,0 +1,54 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct array
+{
+	int A[10];
+	int size;
+	int length;
+	
+};
+void Display(struct array arr)
+{
+	int i;
+	printf("Elements are\n");
+	for(i=0;i<arr.length-1;i++)
+	{
+		printf("%d ",arr.A[i]);
+	}
+}
+void reverse(struct array *arr)
+{
+	int i,j,*B;
+	B=(int*)malloc(arr->length*sizeof(int));
+	for(i=0,j=arr->length-1;i<arr->length,j>=0;i++,j--)
+	{
+		B[i]=arr->A[j];
+	}
+	for(i=0;i<arr->length-1;i++)
+	{
+		arr->A[i]=B[i];
+	}
+}
+void swap(int *x,int *y)
+{
+	int temp;
+	temp=*x;
+	*x=*y;
+	*y=temp;
+}
+void reverse2(struct array *arr)
+{
+	int i,j;
+	for(i=0,j=arr->length-1;i<j;i++,j--)
+	{
+		swap(&arr->A[i],&arr->A[j]);
+	}
+}
+int main()
+{
+	struct array arr={{2,3,9,16,18,21,28,32,35},10,9};
+	reverse2(&arr);
+	Display(arr);
+	
+	
+}

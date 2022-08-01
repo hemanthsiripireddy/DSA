@@ -1,0 +1,25 @@
+#include<stdio.h>
+Morethanone(int A[],int length)
+{
+	int diff=A[0],i;
+	for(i=0;i<length;i++)
+	{
+		if(diff!=A[i]-i)
+		{
+			while(diff<A[i]-i)
+			{
+				printf("Missing element is : %d\n",diff+i);
+				diff++;
+			}
+		}
+	}
+}
+
+int main()
+{
+	int A[10]={12,14,15,16,19,20,21,22,23,24};
+	Morethanone(A,10);
+	return 0;
+	
+	
+}

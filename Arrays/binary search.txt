@@ -1,0 +1,45 @@
+#include<stdio.h>
+int RBinarySearch(int arr[],int l,int h,int key)
+{
+	int mid;
+	if(l<=h)
+	{
+		mid=(l+h)/2;
+		if(key==arr[mid])
+		return mid;
+		else if(key<arr[key])
+		RBinarySearch(arr,l,mid-1,key);
+		else
+		RBinarySearch(arr,mid+1,h,key);
+	}
+	return -1;
+}
+int BinarySearch(int arr[],int key)
+{
+	int l,h,mid;
+	l=0,h=9;
+	while(l<=h)
+	{
+		mid=(l+h)/2;
+		if(key==arr[mid])
+		return mid;
+		else if(key<arr[mid])
+		{
+	       h=mid-1;
+		}
+		else
+		{
+			l=mid+1;
+		}
+		
+		
+	}
+//	return -1;
+}
+int main()
+{
+	int arr[10]={1,2,3,4,5,6,7,8,9,10},i;
+	//printf("%d\n",sizeof(arr)/sizeof(int));
+	i=RBinarySearch(arr,0,9,3);
+	printf("%d",i);
+}

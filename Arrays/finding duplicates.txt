@@ -1,0 +1,49 @@
+#include<stdio.h>
+void FindingDuplicate(int A[],int length)
+{
+	int i;
+	for(i=0;i<length-1;i++)
+	{
+		if(A[i]==A[i+1])
+		{
+			printf("Duplicate is %d\n",A[i]);
+		}
+	}
+}
+void FindingDuplicateonetime(int A[],int length)
+{
+		int i,lastduplicate=0;
+	for(i=0;i<length-1;i++)
+	{
+		if(A[i]==A[i+1]&& A[i]!=lastduplicate)
+		{
+			printf("Duplicate is %d\n",A[i]);
+			lastduplicate=A[i];
+		}
+	}
+}
+void FindingNumberofDuplicates(int A[],int length)
+{
+	int i ,j;
+	for(i=0;i<length-1;i++)
+	{
+		if(A[i]==A[i+1])
+		{
+			j=i+1;
+			while(A[i]==A[j])j++;
+			printf("%d is found %d times\n",A[i],j-i);
+			i=j-1;
+		}
+	}
+}
+
+int main()
+{
+	int A[10]={12,14,15,16,16,16,16,22,22,22};
+	FindingNumberofDuplicates(A,10);
+	
+
+	return 0;
+	
+	
+}
