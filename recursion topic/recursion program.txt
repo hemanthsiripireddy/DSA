@@ -1,0 +1,16 @@
+#include<stdio.h>
+void fun1(int y)
+{
+	if(y>0)
+	{
+	
+	printf("%d ",y);
+	fun1(y-1);
+}
+}
+int   main()
+{
+	int x=3;
+	fun1(x);
+	
+}

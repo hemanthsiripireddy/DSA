@@ -1,0 +1,28 @@
+#include<stdio.h>
+int sum(int n)
+{
+	if(n==0)
+	return 0;
+	return sum(n-1)+n;
+}
+int Isum(int n)
+{
+	int sum=0;
+	for(int i=0;i<=n;i++)
+	{
+		sum=sum+i;
+	}
+	return sum;
+}
+int Fsum(int n)
+{
+	int sum=n*(n+1)/2;
+}
+int main()
+{
+	int x=5;
+	printf("%d ",Fsum(x));
+}
+/* time complexity for formula is o(1) space is O(1)
+ time complexity for iteration is o(n) space is O(1)
+time complexity for recursion is o(n)  space is O(n)*/

@@ -1,0 +1,89 @@
+#include<stdio.h>//Icluding Required header files
+#include<math.h>
+#include<stdlib.h>
+struct node //Creating a linked list
+{
+    int data;
+    struct node *next;
+};
+int FindMax(int A[],int n)// Finding the maximum element in the array
+{
+    int i,max=A[0];
+    for(i=1;i<n;i++)
+    {
+        if(max<A[i])
+        max=A[i];
+    }
+    return max;
+}
+void RadixSort(int A[],int n)//Function to sort elements using Redix Sort Technique
+{
+    int max=FindMax(A,n);
+    int c=0,in,i,j,k,l;//declarating required integer variables
+    struct node **R,*temp,*tmp;// declarating required struct variables
+  
+    
+    while(max!=0)//Finding Number of Passes Required and stored in c variable
+    {
+        c++;
+        max=max/10;
+
+    }
+    for(i=0;i<c;i++)// Loop for the Given number of passes
+    {
+         R=(struct node**)malloc(n*sizeof(struct node*));// creating Bin
+        j=pow(10,i);
+        for(k=0;k<n;k++)// Assigning Null to every pointer
+        {
+            R[k]=NULL;
+        }
+        for(k=0;k<n;k++)// loop for each pass
+        {
+             
+            in=(A[k]/j)%10;
+            temp=(struct node*)malloc(sizeof(struct node));
+            temp->data=A[k];
+            temp->next=NULL;
+            if(R[in]==NULL)// Assigning data from A to bin
+            {
+               
+                R[in]=temp;
+            }
+            else
+            {
+                 tmp=R[in];
+                while(tmp->next!=NULL)
+                {
+                    tmp=tmp->next;
+                }
+                tmp->next=temp;
+            }
+           
+
+        }
+        l=0;
+        for(k=0;k<n;k++)// Assigning back data from bin to A
+        {
+            tmp=R[k];
+            while(tmp!=NULL)
+            {
+                A[l++]=tmp->data;
+                tmp=tmp->next;
+
+            }
+        }
+         free(R);
+    }
+    for(i=0;i<n;i++)
+    {
+        printf("%d ",A[i]);
+    }
+
+}
+int main()
+{
+    int A[]={237,146,259,348,152,163,235,48,36,62},n=10,i;
+    RadixSort(A,n);
+    
+    return 1;
+}

@@ -1,0 +1,45 @@
+struct Stack
+{
+	
+	int rear;
+	int size;
+	struct node **Q;
+};
+
+
+void CreatingStack(struct Stack *s,int size)
+{
+	s->rear=-1;
+	s->size=size;
+	s->Q=(struct node**)malloc(size*sizeof(struct node*));
+}
+
+
+void enstack(struct Stack *s,struct node *p)
+{
+	if(s->rear==s->size-1)
+	printf("Stack is full\n");
+	else
+	{
+		s->rear++;
+		s->Q[s->rear]=p;
+	}
+}
+
+
+struct node *destack(struct Stack *s)
+{
+	if(s->rear==-1)
+	printf("Stack is empty\n");
+	else
+	{
+		s->rear--;
+		return s->Q[s->rear+1];
+	}
+	
+}
+
+int isemptyS(struct Stack *s)
+{
+	return s->rear==-1;
+}

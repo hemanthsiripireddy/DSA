@@ -1,0 +1,29 @@
+#include<stdio.h>
+long long int fac(int n)
+{
+	if(n==0)
+	return 1;
+	return fac(n-1)*n;
+}
+int nCr(int n,int r)
+{
+long long int num,den,l,k;
+	num=fac(n);
+	printf("n=%lld\n",num);
+	
+	l=fac(n-r);k=fac(r);
+	printf("n-r=%lld\n r=%lld\n",l,k);
+	den=l*k;
+	return num/den;
+}
+int NCR(int n,int r)
+{
+	if(r==0||n==r)
+	return 1;
+	return NCR(n-1,r-1)+NCR(n-1,r);
+}
+int main()
+{
+	printf("%d\n%d",nCr(20,4),NCR(20,4));
+	
+}

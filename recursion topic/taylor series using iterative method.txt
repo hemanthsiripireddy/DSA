@@ -1,0 +1,17 @@
+#include<stdio.h>
+double e(int x, int n)
+{
+    double s=1,num=1,dem=1;
+    int i;
+    for(i=1;i<=n;i++)
+    {
+    	num*=x;
+    	dem*=i;
+    	s+=num/dem;
+	}
+	return s;
+}
+int main()
+{
+	printf("%lf",e(1,10));
+}

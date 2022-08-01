@@ -1,0 +1,38 @@
+#include<stdio.h>
+#define SIZE 10
+int hash(int key)
+{
+	int index=key%SIZE;
+	return index;
+	
+}
+void Insert(int H[],int key)
+{
+	int index=hash(key),i=0;
+	while(H[(index+i)%SIZE]!=0)
+	{
+		i++;
+	}
+	H[index+i]=key;
+}
+int Search(int H[],int key)
+{
+	int i=0, index= hash(key);
+	while(H[index+i]!=0)
+	{
+		if(key==H[index+i])
+		return i+index;
+		i++;
+	}
+}
+int main()
+{
+	int H[10]={0};
+	Insert(H,12);
+	Insert(H,25);
+	Insert(H,35);
+	Insert(H,26);
+	printf("Key found at %d",Search(H,35));
+	
+	
+}

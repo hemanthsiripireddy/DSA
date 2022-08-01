@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int num;
+    struct node *node;
+} *ftnode;
+void main()
+{
+
+   int n;
+   printf("Please enter the number of nodes: ");
+   scanf("%d",&n);
+   readvalues(n);
+   displayvalues();
+}
+void readvalues(int n)
+{
+
+    struct node *ntnode,*temp;
+    int i,num;
+    ftnode=(struct node*)malloc(sizeof(struct node));
+    printf("Enter the first node value: ");
+    scanf("%d",&num);
+    ftnode->num=num;
+    ftnode->node=NULL;
+    temp=ftnode;
+    for(i=2;i<=n;i++)
+    {
+        ntnode=(struct node*)malloc(sizeof(struct node));
+        if(ntnode==NULL)
+            printf("Memory not allocated\n");
+        else
+        {
+            printf("Enter the value for node no %d: ",i);
+            scanf("%d",&num);
+            ntnode->num=num;
+            ntnode->node=NULL;
+            temp->node=ntnode;
+            temp=ntnode;
+
+        }
+    }
+}
+void displayvalues()
+{
+        struct node *temp;
+        temp=ftnode;
+        if(temp==NULL)
+            printf("List is Empty: ");
+        else
+            while(temp!=NULL)
+        {
+            printf("%d\n",temp->num);
+            temp=temp->node;
+        }
+}
+
+
+

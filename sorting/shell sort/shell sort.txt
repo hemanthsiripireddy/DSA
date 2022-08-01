@@ -1,0 +1,33 @@
+#include<stdio.h>//including header files
+#include<stdlib.h>
+void ShellSort(int A[],int n)
+{
+    int i,j,temp,gap;
+    for(gap=n/2;gap>=1;gap/=2)// no of passes ( divided gap by 2)
+    {
+        for(i=gap;i<n;i++)//iteration for each gap
+        {
+            j=i-gap;
+            temp=A[i];
+            while(j>=0 && A[j]>temp)// while to check back all array if there any higher elements than current element
+            {
+                A[j+gap]=A[j];
+                
+                j=j-gap;
+
+            }
+            A[j+gap]=temp;
+        }
+    }
+}
+int main()
+{
+    int A[]={9,5,16,8,13,6,12,10,4,2,3},i;// initial array to be sorted
+    ShellSort(A,11);//calling function which perform shellsort
+    for(i=0;i<11;i++)// printing result of sorted elements
+    {
+        printf("%d ",A[i]);
+    }
+    
+    return 1;
+}

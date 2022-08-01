@@ -1,0 +1,114 @@
+#include<stdio.h>
+#define capacity 5
+int queue[capacity];
+int front=0,rear=0;
+int main()
+{
+     int ch,num;
+    while(1)
+    {
+    printf("1,insert\n");
+    printf("2.delete\n");
+    printf("3.peek\n");
+    printf("4.transverse\n");
+    printf("5.exit\n");
+    printf("Enter your choice: ");
+    scanf("%d",&ch);
+
+    switch(ch)
+    {
+        case 1: if(rear==capacity)
+                 printf("Queue is full\n");
+                 else
+                 {
+                     printf("Enter the  element: ");
+                     scanf("%d",&num);
+                    insert(num);
+
+                 }
+                  break;
+        case 2: delete1();
+                break;
+        case 3: peek();
+                break;
+        case 4: transverse();
+                break;
+        case 5: exit(0);
+
+        default : printf("Please enter  valid choice\n");
+
+    }
+    }
+
+}
+int insert(int n)
+{
+        queue[rear++]=n;
+
+        printf("%d is inserted\n",n);
+}
+
+void delete1()
+{
+    int num,i;
+    if(isEmpty())
+    {
+        printf("Queue is empty\n");
+    }
+    else
+    {
+        num= queue[front];
+        printf("%d is deleted\n",num);
+        for(i=0;i<rear-1;i++)
+        {
+            queue[i]=queue[i+1];
+
+        }
+        rear--;
+
+
+    }
+}
+void peek()
+{
+    if(isEmpty())
+    {
+        printf("Queue is empty\n");
+    }
+    else
+    {
+        printf("Peek element is : %d\n",queue[rear-1]);
+    }
+}
+void transverse()
+{
+    int i;
+    if(isEmpty())
+    {
+        printf("Queue is  empty\n");
+    }
+    else
+    {
+        for(i=0;i<rear;i++)
+        {
+            printf("%d\n",queue[i]);
+        }
+    }
+
+}
+int isFull()
+{
+    if(rear==capacity)
+    {
+        return 1;
+    }
+    else
+        return 0;
+}
+int isEmpty()
+{
+    if(rear==0)
+        return 1;
+    else
+        return 0;
+}

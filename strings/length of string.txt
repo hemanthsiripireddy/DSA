@@ -1,0 +1,13 @@
+#include<stdio.h>
+
+int main()
+{
+	char ch[20]="welcome";
+	int i,count=0;
+	for(i=0;ch[i]!='\0';i++)
+	{
+		count++;
+	}
+	printf("length of string is : %d",count);
+	return 0;
+}

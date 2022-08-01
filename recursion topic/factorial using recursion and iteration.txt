@@ -1,0 +1,21 @@
+#include<stdio.h>
+int fac(int n)
+{
+	if(n==1)
+	return 1;
+	return fac(n-1)*n;
+}
+int Ifac(int n)
+{
+	int i,sum=0;
+	for(i=1;i<=n;i++)
+	{
+		sum=sum*i;
+	}
+	return sum;
+}
+int main()
+{
+	int x=35;
+	printf("%d ",fac(4));
+}

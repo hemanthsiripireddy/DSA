@@ -1,0 +1,21 @@
+#include<stdio.h>
+int fun1(int y)
+{
+	static int x=0;
+	if(y>0)
+	{
+		x++;
+		return fun1(y-1)+x;
+	}
+	return 0;
+	
+
+//	fun1(y-1);
+}
+
+int   main()
+{
+	int x=5;
+	printf("%d ",fun1(x));
+	
+}
