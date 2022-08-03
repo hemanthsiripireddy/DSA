@@ -1,0 +1,57 @@
+public int orangesRotting(int[][] grid) {
+    
+    if(grid.length == 0)
+        return 0;
+    
+    int row = grid.length;
+    int col = grid[0].length;
+    
+    Queue<int[]> q = new LinkedList<>();        //to store the rotten oranges of the grid
+    int TotalOranges=0;                         //to get count of total oranges (rotten + Fresh)
+    
+    for(int i=0;i<row;i++){                     //to traverse row
+        for(int j=0;j<col;j++){                 //to traverse each column
+            
+            if(grid[i][j] == 2){                //if that orange is rotten, store it into the queue
+                q.add(new int[]{i,j});
+            }
+            
+            if(grid[i][j]!=0)                   //if that cell is not empty, then definitly have rotten or fresh orange
+                TotalOranges++;                 //count increase by 1
+            
+        }
+    }
+    
+    if(TotalOranges==0) return 0;               //if there is no orange in grid, then there is no need to count how much time require!
+    
+    //bfs
+    int min=0, rottedOranges=0;                 
+    int[] xAxis = {0,0,-1,1};                   // xAxis and yAxis array are use to move in adjacent cells that are one step up, down, left and right
+    int[] yAxis = {-1,1,0,0};                   // when the xAxis value is 0 and yAxis value is -1 then it means we move one step towards left
+    
+    while(!q.isEmpty()){                        //while queue is not empty
+        int rottenSize = q.size();              //size of queue gives us the idea of rotten oranges(fresh conv. into rotten oranges, add into the queue)
+        rottedOranges += q.size();              //so how much amount of rotten oranges are present (or added into) the queue, keep count of it.
+        
+        while(rottenSize>0){                    //in each pass we pop all the rotten oranges currently present in the queue & make adjacent fresh into
+            int[] rotten = q.poll();            //rotten and add into the queue in this while loop
+            for(int i=0; i<4; i++){             //According to problem statement, we to move one step in each directiom(up,down,left,right)
+                int x = rotten[0] + xAxis[i];   //on whatever cell we are just add the xAxis & yAxis accordinly in row & col to move in all 4 direction
+                int y = rotten[1] + yAxis[i];
+
+                if(x<0 || x>=row || y<0 || y>=col || grid[x][y] == 0 || grid[x][y] == 2)        //Our boundary Condition, if we come out from the grid
+                    continue;
+
+                grid[x][y] = 2;             //mark that orange as rotten
+                q.add(new int[]{x,y});      //add into the queue
+
+            }
+            rottenSize--;                   //decrease the size of rottenOranges in the queue, because one is popped out from the queue
+        }
+        
+        min++;                              //after each pass increase a minute
+    }
+    
+    return (rottedOranges==TotalOranges )? min-1:-1;            //if rottedOranges are equal to TotalOranges then it means no fresh orange left, so return min else -1
+    
+}
