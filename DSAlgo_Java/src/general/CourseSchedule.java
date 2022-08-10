@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 public class CourseSchedule {
+	//find if cycle is present
+	// if cycle is present,we can't complete courses
+	// we can find cycle using depth first search
 	 private  List<List<Integer>>adj=new ArrayList<>();
 		private boolean cycleFound=false;
 		private Map<Integer,String>visited=new HashMap<>();
