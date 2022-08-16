@@ -6,11 +6,11 @@ public class SearchInRoatedSortedArray {
 	        
 	        while(start<=end){
 	            int mid=(start+end)/2;
-	            if(target >=nums[0]&&nums[mid]<nums[0])
+	            if(target >=nums[0]&&nums[mid]<nums[0])//Rotated and original region 
 	                end=mid-1;
 	            else if(nums[mid]>=nums[0]&& target<nums[0])
 	                start=mid+1;
-	            else{
+	            else{// standard bianry search
 	                if(target>nums[mid])
 	                    start=mid+1;
 	                else if(target<nums[mid])
