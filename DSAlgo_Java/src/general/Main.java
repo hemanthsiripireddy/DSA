@@ -3,16 +3,10 @@ package general;
 public class Main {
 
 	public static void main(String[] args) {
-	TopologicalSorting tp=new TopologicalSorting(5);
-	tp.initialize(5);
-	tp.addEdge(0, 1);
-	tp.addEdge(0, 2);
-	tp.addEdge(2, 1);
-	tp.addEdge(1, 3);
-	tp.addEdge(1, 4);
-	tp.addEdge(3, 4);
-	tp.dfs(5);
-	tp.print();
+	SearchInRoatedSortedArray s=new SearchInRoatedSortedArray();
+	int[] arr=new int[] {4,5,6,7,0,1,2};
+	System.out.println("hi");
+	System.out.println(s.search(arr, 2));
 	
 
 	}
