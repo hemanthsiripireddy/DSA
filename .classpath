@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Algos"/>
+	<classpathentry kind="src" path="DSAlgo_Java/src"/>
+	<classpathentry kind="src" path="Graphs"/>
+	<classpathentry kind="output" path="DSAlgo_Java/bin"/>
+</classpath>
