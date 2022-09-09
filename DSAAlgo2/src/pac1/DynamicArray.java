@@ -34,11 +34,11 @@ public class DynamicArray {
 		
 	}
 	public void display() {
-		System.out.println("array with size");
+		System.out.println("array with size: "+size);
 		for(int i=0;i<size;i++) {
 			System.out.print(arr[i]+" ");
 		}
-		System.out.println("array with capacity");
+		System.out.println("\narray with capacity; "+capacity);
 		for(int i=0;i<capacity;i++) {
 			System.out.print(arr[i]+" ");
 		}
