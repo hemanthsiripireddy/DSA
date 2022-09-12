@@ -7,6 +7,7 @@ import java.util.*;
 class Main{
 
 public static void main (String[] args) {
+	
 ArrayOperationsDemo arr=new ArrayOperationsDemo(10);
 arr.insertInEnd(20);
 arr.insertInEnd(13);
