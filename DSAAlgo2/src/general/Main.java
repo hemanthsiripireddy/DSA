@@ -1,5 +1,6 @@
 package general;
 
+import comparatorAndComparable.LaptopImpl;
 import febWeek12023.BestTeamWithNoConflicts;
 import pac11.ContinuousSubarraySum;
 import pac11.LFUCache;
@@ -18,7 +19,8 @@ public class Main {
 		//ContinuousSubarraySum.method();
 		//BestTeamWithNoConflicts.method();
 		//KClosestPointstoOriginImpl.method();
-		FindtheKthLargestIntegerintheArrayImpl.method();
+	//	FindtheKthLargestIntegerintheArrayImpl.method();
+		LaptopImpl.method();
 
 	}
 
