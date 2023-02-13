@@ -6,6 +6,8 @@ import pac11.LFUCache;
 import pac11.NextPermutation;
 import pac11.PartitionEqualSubsetSum;
 import pac11.ReverseNodesinKGroups;
+import quickSortPattern.FindtheKthLargestIntegerintheArrayImpl;
+import quickSortPattern.KClosestPointstoOriginImpl;
 
 public class Main {
 
@@ -14,7 +16,9 @@ public class Main {
 		//PartitionEqualSubsetSum.method();
 		//ReverseNodesinKGroups.method();
 		//ContinuousSubarraySum.method();
-		BestTeamWithNoConflicts.method();
+		//BestTeamWithNoConflicts.method();
+		//KClosestPointstoOriginImpl.method();
+		FindtheKthLargestIntegerintheArrayImpl.method();
 
 	}
 
