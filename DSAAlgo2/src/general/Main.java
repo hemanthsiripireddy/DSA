@@ -11,12 +11,14 @@ import pac11.PartitionEqualSubsetSum;
 import pac11.ReverseNodesinKGroups;
 import quickSortPattern.FindtheKthLargestIntegerintheArrayImpl;
 import quickSortPattern.KClosestPointstoOriginImpl;
+import strings.TextJustification;
 import strings.ValidNumber;
 
 public class Main {
 
 	public static void main(String[] args) {
-		MaximumTwinSumofaLinkedList.method();
+		//MaximumTwinSumofaLinkedList.method();
+		TextJustification.method();
 
 	}
 
