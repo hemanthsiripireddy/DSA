@@ -1,5 +1,10 @@
 package general;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import comparatorAndComparable.LaptopImpl;
 import dynamicProgramming.ServiceNowCompanyNumberOfWaysProblem;
 import febWeek12023.BestTeamWithNoConflicts;
@@ -22,7 +27,24 @@ public class Main {
 	public static void main(String[] args) {
 		//MaximumTwinSumofaLinkedList.method();
 		//NumberofAtoms.method();
-		DistinctSubsequences.method();
+		
+		List<String>list=new ArrayList<>();
+		//	Arrays.f
+			list.add("ab");
+			list.add("ba");
+			list.add("ab");
+			Comparator c1=new Comparator<String>() {
+				public int compare(String s1,String s2) {
+					
+					if(s1.compareTo(s2)>0)
+						return -1;
+					else
+						return 1;
+				}
+			};
+			Collections.sort(list,c1);
+			for(String s:list)
+				System.out.println(s);
 
 	}
 
